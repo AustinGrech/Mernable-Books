@@ -1,18 +1,12 @@
-import React from 'react';
-import {
-  Container,
-  Card,
-  Button,
-  Row,
-  Col
-} from 'react-bootstrap';
+import React from "react";
+import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
-import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ME } from '../utils/queries';
-import { REMOVE_BOOK } from '../utils/mutations';
-import { removeBookId } from '../utils/localStorage';
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_ME } from "../utils/queries";
+import { REMOVE_BOOK } from "../utils/mutations";
+import { removeBookId } from "../utils/localStorage";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
@@ -53,11 +47,12 @@ const SavedBooks = () => {
         </Container>
       </div>
       <Container>
-        <h2 className='pt-5'>
+        <h2 className="pt-5">
           {userData.savedBooks?.length
-            ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'
-            }:`
-            : 'You have no saved books!'}
+            ? `Viewing ${userData.savedBooks.length} saved ${
+                userData.savedBooks.length === 1 ? "book" : "books"
+              }:`
+            : "You have no saved books!"}
         </h2>
         <div>
           <Row>
@@ -73,7 +68,15 @@ const SavedBooks = () => {
                       />
                     ) : null}
                     <Card.Body>
-                      <Card.Title>{book.title}</Card.Title>
+                      <Card.Title>
+                        <a
+                          href={`https://books.google.com/books?id=${book.bookId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {book.title}
+                        </a>
+                      </Card.Title>
                       <p className="small">Authors: {book.authors}</p>
                       <Card.Text>{book.description}</Card.Text>
                       <Button
